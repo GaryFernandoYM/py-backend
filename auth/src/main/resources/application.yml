@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: auth-service
+  profiles:
+    active: development
+  config:
+    import: optional:configserver:http://root:sw33t@localhost:8080
+jwt:
+  secret: secret
