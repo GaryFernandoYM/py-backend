@@ -1,7 +1,7 @@
 spring:
   application:
-    name: registry-service
+    name: ms-registry-service
   profiles:
     active: development
   config:
-    import: optional:configserver:http://root:sw33t@localhost:8080
+    import: optional:configserver:http://root:s3cr3t@localhost:7070
