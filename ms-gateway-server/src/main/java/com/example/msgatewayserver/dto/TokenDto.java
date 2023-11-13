@@ -1,4 +1,4 @@
-package com.spinmax.gatewayserver.dto;
+package com.example.msgatewayserver.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
+
 public class TokenDto {
     private String token;
 }

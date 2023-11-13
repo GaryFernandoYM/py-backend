@@ -1,5 +1,5 @@
-package com.spinmax.gatewayserver.config;
-import com.spinmax.gatewayserver.dto.TokenDto;
+package com.example.msgatewayserver.config;
+import com.example.msgatewayserver.dto.TokenDto;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
@@ -12,8 +12,8 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
-
     private WebClient.Builder webClient;
+
 
     public AuthFilter(WebClient.Builder webClient) {
         super(Config.class);
@@ -30,7 +30,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                 return onError(exchange, HttpStatus.BAD_REQUEST);
             return webClient.build()
                     .post()
-                    .uri("http://auth-service/auth/validate?token=" + chunks[1])
+                    .uri("http://ms-auth-service/auth/validate?token=" + chunks[1])
                     .retrieve().bodyToMono(TokenDto.class)
                     .map(t -> {
                         t.getToken();
@@ -39,11 +39,17 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
         }));
     }
 
+
     public Mono<Void> onError(ServerWebExchange exchange, HttpStatus status){
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(status);
-        return response.setComplete();
+        return ((ServerHttpResponse) response).setComplete();
     }
 
+
     public static class Config {}
+
+
 }
+
+
